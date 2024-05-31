@@ -16,6 +16,7 @@ import kotlin.concurrent.timer
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var timer:Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         startWorkout()
         rulesActivity()
-
+        setStopButtonClickListener()
 
     }
 
@@ -54,8 +55,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun startWorkout() {
         binding.startButton.setOnClickListener {
-            val timer = Timer()
-            timer.scheduleAtFixedRate(object : TimerTask() {
+            binding.startButton.isEnabled=false
+            if (timer==null) {
+                timer = Timer()
+            }
+            timer?.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     runOnUiThread {
                         val randomCard = cardList[Random().nextInt(cardList.size)]
@@ -74,10 +78,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun choosingCard(){
+    private fun setStopButtonClickListener() {
         binding.stopButton.setOnClickListener {
-
-
+            timer?.cancel()
+            timer=null
+            binding.startButton.isEnabled=true
 
         }
     }
