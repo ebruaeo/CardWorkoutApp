@@ -2,6 +2,7 @@ package com.example.cardworkoutapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -62,11 +63,12 @@ class MainActivity : AppCompatActivity() {
             timer?.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     runOnUiThread {
+                        Log.i("timer task","card changed")
                         val randomCard = cardList[Random().nextInt(cardList.size)]
                         binding.cardImageView.setImageResource(randomCard)
                     }
                 }
-            }, 0, 100)
+            }, 0, 1000)
         }
     }
 
@@ -85,5 +87,12 @@ class MainActivity : AppCompatActivity() {
             binding.startButton.isEnabled=true
 
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        timer?.cancel()
+        timer=null
+        binding.startButton.isEnabled=true
     }
 }
