@@ -1,8 +1,12 @@
 package com.example.cardworkoutapp
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,7 +21,7 @@ import kotlin.concurrent.timer
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var timer:Timer? = null
+    private var timer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,14 +60,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun startWorkout() {
         binding.startButton.setOnClickListener {
-            binding.startButton.isEnabled=false
-            if (timer==null) {
+            binding.startButton.isEnabled = false
+            if (timer == null) {
                 timer = Timer()
             }
             timer?.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     runOnUiThread {
-                        Log.i("timer task","card changed")
+                        Log.i("timer task", "card changed")
                         val randomCard = cardList[Random().nextInt(cardList.size)]
                         binding.cardImageView.setImageResource(randomCard)
                     }
@@ -74,8 +78,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun rulesActivity() {
         binding.rulesButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, RulesActivity::class.java)
-            startActivity(intent)
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder
+                .setMessage(R.string.dialogMessage)
+                .setTitle(R.string.rulesString)
+                .setNegativeButton("Cancel", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        Toast.makeText(this@MainActivity, "Cancelled", Toast.LENGTH_SHORT).show()
+                    }
+
+                }).setNeutralButton("back", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        Toast.makeText(this@MainActivity, "back", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+                .setPositiveButton("okay") { _, _ -> }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
     }
 
@@ -83,8 +104,8 @@ class MainActivity : AppCompatActivity() {
     private fun setStopButtonClickListener() {
         binding.stopButton.setOnClickListener {
             timer?.cancel()
-            timer=null
-            binding.startButton.isEnabled=true
+            timer = null
+            binding.startButton.isEnabled = true
 
         }
     }
@@ -92,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         timer?.cancel()
-        timer=null
-        binding.startButton.isEnabled=true
+        timer = null
+        binding.startButton.isEnabled = true
     }
 }

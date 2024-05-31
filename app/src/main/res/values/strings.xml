@@ -5,6 +5,19 @@
     <string name="rulesString">Rules</string>
     <string name="rulesExplanation">The value of each card represents the number of exercise you do.</string>
     <string name="cardExplanation">J = 11, Q = 12, K = 13, A = 14</string>
+    <string name="dialogMessage">The value of each card represents the number of exercise you do.
+
+       \n\n J = 11, Q = 12, K = 13, A = 14
+
+
+        \n\n  ♠ = Push-up
+        \n
+        \n  ♥ = Sit-up
+        \n
+        \n  ♣ = Burpees
+        \n
+        \n  ♦ = Jumping Jacks
+    </string>
 
     <string name="symbolExplanation1">♠ = Push-up</string>
     <string name="symbolExplanation2">♥ = Sit-up</string>
