@@ -78,24 +78,20 @@ class MainActivity : AppCompatActivity() {
         binding.rulesButton.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
             val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet, null)
-
-            bottomSheetView.findViewById<Button>(R.id.buttonOk).setOnClickListener {
-                bottomSheetDialog.dismiss()
-            }
-
-            bottomSheetView.findViewById<Button>(R.id.buttonX).setOnClickListener {
-                bottomSheetDialog.dismiss()
-            }
-
             bottomSheetDialog.setContentView(bottomSheetView)
 
+            val buttonOk = bottomSheetView.findViewById<Button>(R.id.buttonOk)
+            buttonOk.setOnClickListener {
+                bottomSheetDialog.dismiss()
+            }
+
+            val buttonX = bottomSheetView.findViewById<Button>(R.id.buttonX)
+            buttonX.setOnClickListener {
+                bottomSheetDialog.dismiss()
+            }
+
+
             bottomSheetDialog.show()
-
-
-
-
-
-
 
 
         }
