@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cardworkoutapp.databinding.ActivityMainBinding
+import com.example.cardworkoutapp.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Random
 import java.util.Timer
@@ -77,19 +78,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.rulesButton.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
-            val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet, null)
-            bottomSheetDialog.setContentView(bottomSheetView)
+            val bottomSheetBinding = BottomSheetBinding.inflate(layoutInflater)
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
 
-            val buttonOk = bottomSheetView.findViewById<Button>(R.id.buttonOk)
-            buttonOk.setOnClickListener {
+
+            bottomSheetBinding.buttonOk.setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
 
-            val buttonX = bottomSheetView.findViewById<Button>(R.id.buttonX)
-            buttonX.setOnClickListener {
+            bottomSheetBinding.buttonX.setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
-
 
             bottomSheetDialog.show()
 
