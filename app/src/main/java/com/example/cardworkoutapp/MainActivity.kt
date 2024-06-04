@@ -1,22 +1,23 @@
 package com.example.cardworkoutapp
 
-import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cardworkoutapp.databinding.ActivityMainBinding
-import java.lang.Math.random
+import com.example.cardworkoutapp.databinding.CustomDialogBinding
 import java.util.Random
 import java.util.Timer
 import java.util.TimerTask
-import kotlin.concurrent.timer
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -78,24 +79,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun rulesActivity() {
         binding.rulesButton.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder
-                .setMessage(R.string.dialogMessage)
-                .setTitle(R.string.rulesString)
-                .setNegativeButton("Cancel", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        Toast.makeText(this@MainActivity, "Cancelled", Toast.LENGTH_SHORT).show()
-                    }
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.custom_dialog)
+            dialog.setCancelable(false)
 
-                }).setNeutralButton("back", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        Toast.makeText(this@MainActivity, "back", Toast.LENGTH_SHORT).show()
-                    }
+            val buttonOK = dialog.findViewById<Button>(R.id.buttonOk)
+            buttonOK.setOnClickListener {
+                dialog.cancel()
+            }
 
-                })
-                .setPositiveButton("okay") { _, _ -> }
+            val buttonX = dialog.findViewById<Button>(R.id.buttonX)
+            buttonX.setOnClickListener {
+                dialog.cancel()
+            }
 
-            val dialog: AlertDialog = builder.create()
             dialog.show()
         }
     }
