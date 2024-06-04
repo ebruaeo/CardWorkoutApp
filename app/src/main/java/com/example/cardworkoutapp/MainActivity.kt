@@ -78,21 +78,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rulesActivity() {
+
         binding.rulesButton.setOnClickListener {
             val dialog = Dialog(this)
-            dialog.setContentView(R.layout.custom_dialog)
-            dialog.setCancelable(false)
+            val dialogBinding = CustomDialogBinding.inflate(layoutInflater)
+            dialog.setContentView(dialogBinding.root)
 
-            val buttonOK = dialog.findViewById<Button>(R.id.buttonOk)
-            buttonOK.setOnClickListener {
+            dialogBinding.buttonOk.setOnClickListener {
                 dialog.cancel()
             }
-
-            val buttonX = dialog.findViewById<Button>(R.id.buttonX)
-            buttonX.setOnClickListener {
+            dialogBinding.buttonX.setOnClickListener {
                 dialog.cancel()
             }
-
             dialog.show()
         }
     }
