@@ -1,19 +1,15 @@
 package com.example.cardworkoutapp
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cardworkoutapp.databinding.ActivityMainBinding
-import com.example.cardworkoutapp.databinding.CustomDialogBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Random
 import java.util.Timer
 import java.util.TimerTask
@@ -35,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         startWorkout()
-        rulesActivity()
+        openDialog()
         setStopButtonClickListener()
 
     }
@@ -77,20 +73,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun rulesActivity() {
+    private fun openDialog() {
 
         binding.rulesButton.setOnClickListener {
-            val dialog = Dialog(this)
-            val dialogBinding = CustomDialogBinding.inflate(layoutInflater)
-            dialog.setContentView(dialogBinding.root)
+            val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+            val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet, null)
 
-            dialogBinding.buttonOk.setOnClickListener {
-                dialog.cancel()
+            bottomSheetView.findViewById<Button>(R.id.buttonOk).setOnClickListener {
+                bottomSheetDialog.dismiss()
             }
-            dialogBinding.buttonX.setOnClickListener {
-                dialog.cancel()
+
+            bottomSheetView.findViewById<Button>(R.id.buttonX).setOnClickListener {
+                bottomSheetDialog.dismiss()
             }
-            dialog.show()
+
+            bottomSheetDialog.setContentView(bottomSheetView)
+
+            bottomSheetDialog.show()
+
+
+
+
+
+
+
+
         }
     }
 
