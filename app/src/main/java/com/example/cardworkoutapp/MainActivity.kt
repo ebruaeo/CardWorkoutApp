@@ -1,8 +1,10 @@
 package com.example.cardworkoutapp
-
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -77,9 +79,10 @@ class MainActivity : AppCompatActivity() {
     private fun openDialog() {
 
         binding.rulesButton.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+            val bottomSheetDialog = BottomSheetDialog(this)
             val bottomSheetBinding = BottomSheetBinding.inflate(layoutInflater)
             bottomSheetDialog.setContentView(bottomSheetBinding.root)
+            //bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
 
 
             bottomSheetBinding.buttonOk.setOnClickListener {
@@ -89,10 +92,7 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBinding.buttonX.setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
-
             bottomSheetDialog.show()
-
-
         }
     }
 
